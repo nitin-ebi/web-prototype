@@ -1,0 +1,63 @@
+import React, { Component } from "react";
+
+class GenotypesFilter extends Component {
+
+    constructor(props) {
+        super(props);
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
+        switch (name) {
+            case "species":
+                this.props.onSpeciesChange(value);
+                break;
+            case "location":
+                this.props.onLocationChange(value);
+                break;
+            case "resultsPerPage":
+                this.props.onResultsPerPageChange(value);
+                break;
+            default:
+                console.log("Input not recognised");
+        }
+    }
+
+    render() {
+        return (
+            <div>
+            <form onSubmit={this.props.onSubmit} className="vf-stack vf-stack--400">
+                <div className="vf-form__item vf-stack vf-stack--200">
+                    <label className="vf-form__label">Organism / Assembly:</label>
+                    <select name="species" value={this.props.species} onChange={this.handleInputChange} className="vf-form__select">
+                        <option value="blah">Blah / blah blah</option>
+                        <option value="ecaballus_20">Horse / EquCab2.0</option>
+                        
+                    </select>
+                </div>
+                <div className="vf-form__item vf-stack vf-stack--200">
+                    <label className="vf-form__label">Chromosomal Location:</label>
+                    <input type="text" name="location" value={this.props.location} onChange={this.handleInputChange} className="vf-form__input"></input>
+                </div>
+                <div className="vf-form__item vf-stack vf-stack--200">
+                    <label className="vf-form__label">Results per page</label>
+                    <select name="resultsPerPage" value={this.props.resultsPerPage} onChange={this.handleInputChange} className="vf-form__select">
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="50">100</option>
+                    </select>
+                </div>
+                <div className="vf-form__item vf-stack vf-stack--200">
+                    <input type="submit" value="Search" className="vf-form__input"></input>
+                </div>
+            </form>
+            </div>
+        );
+    }
+
+}
+
+export default GenotypesFilter;
