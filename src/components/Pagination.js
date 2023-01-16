@@ -8,8 +8,8 @@ class Pagination extends Component {
         // subset of page numbers to display
         let pageNumbers = [...new Set([
             1, 2, 3,
-            Math.max(currentPage-1, 1), currentPage, Math.min(currentPage+1, numPages+1),
-            numPages-1, numPages, numPages+1
+            Math.max(currentPage-1, 1), currentPage, Math.min(currentPage+1, numPages),
+            numPages-2, numPages-1, numPages
         ])].sort((a, b) => a - b);
         pageNumbers = pageNumbers.flatMap((num, idx, arr) => {
             // include "..." if the gap is larger than 1
