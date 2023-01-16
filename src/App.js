@@ -135,13 +135,16 @@ class App extends Component {
                         <GenotypesFilter
                             species={this.state.species} onSpeciesChange={this.handleSpeciesChange}
                             location={this.state.location} onLocationChange={this.handleLocationChange}
-                            studies={this.state.studies} selectedStudies={this.state.selectedStudies} onStudiesChange={this.handleStudiesChange}
-                            resultsPerPage={this.state.resultsPerPage} onResultsPerPageChange={this.handleResultsPerPageChange}
+                            studies={this.state.studies} selectedStudies={this.state.selectedStudies}
+                            onStudiesChange={this.handleStudiesChange}
+                            resultsPerPage={this.state.resultsPerPage}
+                            onResultsPerPageChange={this.handleResultsPerPageChange}
                             onSubmit={this.handleSubmit} />
                         <GenotypesTable
                             studies={this.state.selectedStudies} variants={this.state.variants}
                             error={this.state.error} isLoaded={this.state.isLoaded}
-                            currentPage={this.state.currentPage} numPages={this.state.numPages} onPageChange={this.handlePageChange} />
+                            currentPage={this.state.currentPage} numPages={this.state.numPages}
+                            onPageChange={this.handlePageChange} />
                 </div>
             </div>
         );

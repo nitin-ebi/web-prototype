@@ -34,14 +34,15 @@ class GenotypesFilter extends Component {
                 <div className="vf-form__item vf-stack vf-stack--200">
                     <label className="vf-form__label">Organism / Assembly:</label>
                     <select name="species" value={this.props.species} onChange={this.handleInputChange} className="vf-form__select">
-                        <option value="blah">Blah / blah blah</option>
+                        {/* TODO fetch species, assemblies, and default locations automatically */}
                         <option value="ecaballus_20">Horse / EquCab2.0</option>
 
                     </select>
                 </div>
                 <div className="vf-form__item vf-stack vf-stack--200">
                     <label className="vf-form__label">Chromosomal Location:</label>
-                    <input type="text" name="location" value={this.props.location} onChange={this.handleInputChange} className="vf-form__input"></input>
+                    <input type="text" name="location" className="vf-form__input"
+                     value={this.props.location} onChange={this.handleInputChange}></input>
                 </div>
 
                 <fieldset className="vf-form__fieldset vf-stack vf-stack--200">
@@ -58,7 +59,8 @@ class GenotypesFilter extends Component {
 
                 <div className="vf-form__item vf-stack vf-stack--200">
                     <label className="vf-form__label">Results per page</label>
-                    <select name="resultsPerPage" value={this.props.resultsPerPage} onChange={this.handleInputChange} className="vf-form__select">
+                    <select name="resultsPerPage" className="vf-form__select"
+                     value={this.props.resultsPerPage} onChange={this.handleInputChange}>
                         <option value="10">10</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
