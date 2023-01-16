@@ -9,7 +9,7 @@ class Pagination extends Component {
         let pageNumbers = [...new Set([
             1, Math.min(2, numPages), Math.min(3, numPages),
             Math.max(currentPage-1, 1), currentPage, Math.min(currentPage+1, numPages),
-            numPages-2, numPages-1, numPages
+            Math.max(numPages-2, 1), Math.max(numPages-1, 1), numPages
         ])].sort((a, b) => a - b);
         pageNumbers = pageNumbers.flatMap((num, idx, arr) => {
             // include "..." if the gap is larger than 1
