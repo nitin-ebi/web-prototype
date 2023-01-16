@@ -7,7 +7,7 @@ class Pagination extends Component {
         const numPages = this.props.numPages;
         // subset of page numbers to display
         let pageNumbers = [...new Set([
-            1, 2, 3,
+            1, Math.min(2, numPages), Math.min(3, numPages),
             Math.max(currentPage-1, 1), currentPage, Math.min(currentPage+1, numPages),
             numPages-2, numPages-1, numPages
         ])].sort((a, b) => a - b);
