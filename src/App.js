@@ -63,16 +63,16 @@ class App extends Component {
         if (i < 0) {
             this.setState({
                 selectedStudies: [...currentSelected, studyId]
-            }, this._fetchVariants);
+            });
         } else {
             this.setState({
                 selectedStudies: [...currentSelected.slice(0, i), ...currentSelected.slice(i+1)]
-            }, this._fetchVariants);
+            });
         }
     }
 
     handleResultsPerPageChange(resultsPerPage) {
-        this.setState({resultsPerPage}, this._fetchVariants);
+        this.setState({resultsPerPage});
     }
 
     handleSubmit(event) {
