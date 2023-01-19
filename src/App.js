@@ -49,8 +49,9 @@ class App extends Component {
 
     handleAssemblyChange(selectedAssembly) {
         this.setState({
-            selectedAssembly: selectedAssembly, location: this.assemblyPositionMap[selectedAssembly]
-            }, this._fetchStudies);
+            selectedAssembly: selectedAssembly,
+            location: this.assemblyPositionMap[selectedAssembly]
+        }, this._fetchStudies);
     }
 
     handleLocationChange(location) {
