@@ -33,7 +33,9 @@ class GenotypesTable extends Component {
                                     <td className="vf-table__cell | vf-table__heading" scope="row">{item.chromosome}</td>
                                     <td className="vf-table__cell | vf-table__heading" scope="row">{item.start}</td>
                                     <td className="vf-table__cell | vf-table__heading" scope="row">{item.reference}</td>
-                                    <td className="vf-table__cell | vf-table__heading" scope="row">{item.alternate}</td>
+                                    <td className="vf-table__cell | vf-table__heading" scope="row"
+                                        style={{"backgroundColor": item.mostSevereConsequences.color}}>{item.alternate}</td>
+
                                     {studies.map(study => (
                                         <td key={study} className="vf-table__cell">{item.alleleFreqs[study]}</td>
                                     ))}
