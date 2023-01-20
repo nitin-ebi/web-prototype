@@ -15,6 +15,9 @@ class GenotypesFilter extends Component {
             case "species":
                 this.props.onSpeciesChange(value);
                 break;
+            case "assembly":
+                this.props.onAssemblyChange(value)
+                break;
             case "location":
                 this.props.onLocationChange(value);
                 break;
@@ -33,10 +36,15 @@ class GenotypesFilter extends Component {
             <form onSubmit={this.props.onSubmit} className="vf-stack vf-stack--400">
                 <div className="vf-form__item vf-stack vf-stack--200">
                     <label className="vf-form__label">Organism / Assembly:</label>
-                    <select name="species" value={this.props.species} onChange={this.handleInputChange} className="vf-form__select">
-                        {/* TODO fetch species, assemblies, and default locations automatically */}
-                        <option value="ecaballus_20">Horse / EquCab2.0</option>
-
+                    <select name="species" value={this.props.selectedSpecies} onChange={this.handleInputChange} className="vf-form__select">
+                        {this.props.speciesList.map(item => (
+                            <option key={item.taxonomyCode} value={item.taxonomyCode} title={item.taxonomyCommonName}>{item.taxonomyScientificName}</option>
+                        ))}
+                    </select>
+                    <select name="assembly" value={this.props.selectedAssembly} onChange={this.handleInputChange} className="vf-form__select">
+                        {this.props.assemblyList.map(item => (
+                            <option key={item.assemblyCode} value={this.props.selectedSpecies + "_" + item.assemblyCode}>{item.assemblyName}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="vf-form__item vf-stack vf-stack--200">
