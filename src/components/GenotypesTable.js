@@ -3,6 +3,16 @@ import Pagination from "./Pagination";
 
 class GenotypesTable extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            variantConsequence: {}
+        };
+    }
+
+
+
+
     render() {
         const error = this.props.error;
         const isLoaded = this.props.isLoaded;
@@ -34,7 +44,7 @@ class GenotypesTable extends Component {
                                     <td className="vf-table__cell | vf-table__heading" scope="row">{item.start}</td>
                                     <td className="vf-table__cell | vf-table__heading" scope="row">{item.reference}</td>
                                     <td className="vf-table__cell | vf-table__heading" scope="row"
-                                        style={{"backgroundColor": item.mostSevereConsequences.color}}>{item.alternate}</td>
+                                        style={{"backgroundColor": item.color}}>{item.alternate}</td>
 
                                     {studies.map(study => (
                                         <td key={study} className="vf-table__cell">{item.alleleFreqs[study]}</td>

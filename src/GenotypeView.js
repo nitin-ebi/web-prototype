@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { hot } from "react-hot-loader";
-import {chain, sortBy, uniqBy, first} from "lodash";
+import {chain, sortBy, uniqBy, first, find, keys} from "lodash";
 import GenotypesFilter from "./components/GenotypesFilter";
 import GenotypesTable from "./components/GenotypesTable";
-
+import {consequenceTypeDetails} from "./components/eva-annotation-model.js"
 
 class GenotypeView extends Component {
 
@@ -20,11 +20,13 @@ class GenotypeView extends Component {
             variants: [],
             selectedStudies: [],
             resultsPerPage: 50,
-            currentPage: 1
+            currentPage: 1,
+            ensemblAssembly: ''
         };
         this.consequenceRankMap = {}
         this.assemblyPositionMap = {'ecaballus_20':'1:3000000-3100000','aaegypti_aaegl3': 'supercont1.18:100000-500000', 'agambiae_agamp4': 'X:10000000-11000000', 'aminimus_1v1': 'KB663610:1-500000', 'aquadriannulatus_quad4av1': 'KB665398:1-15000', 'asinensis_v1': 'AXCK02015324:1-15000', 'astephensi_sda500v1': 'KB664288:1-15000', 'bjuncea_t8466v1': 'CM007185.1:4000000-4900000', 'cporcellus_30': 'DS562860.1:4330000-4340000', 'dmelanogaster_6': '2L:4000-8000', 'drerio_grcz10': '1:4220000-4270000', 'falbicollis_15': '10:19105400-19105800', 'ggallus_galgal4': '1:2100000-2500000', 'hannuus_xrqr10': '10:84310000-84315000', 'hbrasiliensis_asm165405v1': 'LVXX01000001.1:3000000-3900000', 'hsapiens_grch37': '13:32889611-32973805', 'hsapiens_grch38': '13:32315474-32400266', 'lcrocea_10': 'LG1:3000-30000', 'mgallopavo_50': '1:51940000-51960000', 'mmulatta_801': '2:163845000-163846000', 'oaries_oarv40': '19:48650000-48660000', 'pyedoensis_pynv1': 'Pyn_C0000:4000-14000', 'sratti_ed321v504': 'SRAE_chr2:10000-20000', 'sscrofa_111': 'X:9610000-9611000', 'slycopersicum_sl250': '9:59100000-59200000', 'tdicoccoides_wewseqv1': 'CM007921.1:100000-1000000', 'vvinifera_12x': '18:7850000-7895000', 'zmays_agpv4': '6:166875000-166876000', 'aaegypti_aaegl2': 'supercont1.562:1-1000000', 'aarabiensis_dong5av1': 'KB704463.1:1000001-2000000', 'acomosus_asm154086v1': 'CM003826.1:11000001-12000000', 'aculicifacies_a371v1': 'KI422496.1:1-1000000', 'acygnoides_goosev10': 'KZ155908.1:2000001-3000000', 'aepiroticus_epiroticus2v1': 'KB671842.1:1-1000000', 'afunestus_fumozv1': 'KB668814.1:1-1000000', 'agambiae_agamp3': '2L:2000001-3000000', 'amelas_cm1001059av2': 'KI919291.1:1-1000000', 'amexicanum_asm291563v1': 'PGSH01011343.1:1000001-2000000', 'aphrygia_10': 'sc0000087:1-1000000', 'aplatyrhynchos_iascaaspbh15': '17:1-1000000', 'aplatyrhynchosplatyrhynchos_cauwild10': 'Chr7:2000001-3000000', 'athaliana_tair10': '3:13000001-14000000', 'banthracis_asm784v1': 'NC_003997.3:1-1000000', 'bbison_umd31': 'Chr29:12000001-13000000', 'bbubalis_umdcaspurwb20': 'AWWX01438720.1:1-1000000', 'bgrunniens_umd311': 'Chr6:71000001-72000000', 'bindicus_umd31': 'Chr14:1-1000000', 'bmutus_bosgruv20': 'NW_005395160.1:1-1000000', 'bnapus_branapusv20': 'CM002761.2:23000001-24000000', 'btaurus_arsucd12': '6:85000001-86000000', 'btaurus_umd31': '23:28000001-29000000', 'btaurus_umd311': '12:76000001-77000000', 'cannuum_zunla1ref10': 'CM002812.1:144000001-145000000', 'ccajan_10': 'CM003613.1:25000001-26000000', 'cfamiliaris_31': '8:73000001-74000000', 'chircus_10': '19:2000001-3000000', 'chircus_ars1': 'NC_030813.1:86000001-87000000', 'cjacchus_32': '21:3000001-4000000', 'cquilicii_ccap21': 'NW_019376285.1:1000001-2000000', 'csabaeus_chlsab11': 'CAE17:39000001-40000000', 'csativa_asm186575v1': 'Cannabis.v1_scf1_q:1-1000000', 'csativus_v3': 'chr3:16000001-17000000', 'ddiscoideum_dicty27': 'CM000154.2:3000001-4000000', 'dlabrax_seabassv10': 'HG916839.1:21000001-22000000', 'dpipra_asm171598v1': 'MCBO01000495.1:3000001-4000000', 'drerio_grcz11': '13:8000001-9000000', 'ecaballus_30': 'chr20:33000001-34000000', 'eoleiferaxeguinessnsis_EG5': 'Chr9:31000001-32000000', 'fcatus_80': 'B1:173000001-174000000', 'fcatus_90': 'NC_018732.3:101000001-102000000', 'foxysporum_ii5v1': 'JH658330.1:1-1000000', 'ggallus_galgal5': 'chr6:5000001-6000000', 'ggallus_grcg6a': 'CM000098.5:6000001-7000000', 'gmax_20': '5:39000001-40000000', 'gmax_gmaxv11': 'GLYMAchr_11:15000001-16000000', 'gmax_v1': 'GLYMAchr_01:16000001-17000000', 'gmax_v21': 'CM000851.3:47000001-48000000', 'hannus_xrqr10': 'HanXRQChr04:112000001-113000000', 'hchromini_Orenil11': 'LG22:1000001-2000000', 'hleucocephalus_40': 'NW_010973220.1:4000001-5000000', 'hsapiens_asm240226v1': 'AJ507799.2:1-1000000', 'hvulgare_030312v2': '7:5000001-6000000', 'hvulgare_morexv20': 'chr6H:545000001-546000000', 'jregia_wgs5d': 'LIHL01055748.1:1-1000000', 'lmonocytogenesegde_asm19603v1': 'AL591824.1:2000001-3000000', 'lpolyactis_asm1011929v1': 'scaffold1588:1-1000000', 'lrohita_asm412021v1': 'scaffold_12910:1-1000000', 'lsalmonis_lsalatlcanadafemalev1': 'LBBX01017489.1:1-1000000', 'lsativa_lsatsalinasv7': 'CM022518.1:159000001-160000000', 'lusitatissimum_asm22429v2': 'CP027626.1:11000001-12000000', 'mchrysops_dom152mochry10': '1080622:1-1000000', 'mmusculus_grcm38': '4:113000001-114000000', 'mmusculus_mgscv37': '1:90000001-91000000', 'msubspparatuberculosis_asm786v1': 'NC_002944.2:1000001-2000000', 'nvison_nnqggv1': 'FNWR01000307.1:1000001-2000000', 'oanatinus_501': 'NW_001794413.1:2000001-3000000', 'oaries_oarrambouilletv10': 'Chromosome11:25000001-26000000', 'oaries_oarv31': 'X:1000001-2000000', 'ocuniculus_20': 'CM000798.1:12000001-13000000', 'odallidalli_oarv31': 'OAR20:27000001-28000000', 'oniloticus_umdnmbu': 'LG08:1-1000000', 'osativa_irgsp10': '4:3000001-4000000', 'osativa_osativa40': 'NC_001320.1:1-1000000', 'osativaindicagroup_irgsp10': '6:16000001-17000000', 'osativaindicagroup_r498genomeversion1': 'CP018160.1:4000001-5000000', 'osativajaponicagroup_irgsp10': '4:10000001-11000000', 'osativajaponicagroup_osativa40': '11:13000001-14000000', 'pabies_a541150contigsfastagz': 'contig_9922:1-1000000', 'pbairdii_hupman21': 'chr23:29000001-30000000', 'pfalciparum_GCA000002765': '4:1-1000000', 'pfalciparum_asm276v2': '11:1000001-2000000', 'pmajor_11': '4:29000001-30000000', 'pvulgaris_10': '11:47000001-48000000', 'rnorvegicus_60': 'chr6:140000001-141000000', 'sbicolor_ncbiv3': 'Chr05:46000001-47000000', 'sbicolor_sorbi1': '8:54000001-55000000', 'scerevisiae_r64': 'BK006948.2:1-1000000', 'sdumerili_10': 'BDQW01000306.1:1-1000000', 'sitalica_setariav1': 'SETITscaffold_4:35000001-36000000', 'slucioperca_slucfbn12': 'CM024506.1:12000001-13000000', 'slycopersicum_sl240': '4:10000001-11000000', 'smansoni_23792v2': '2:32000001-33000000', 'spombe_asm294v2': 'III:1-1000000', 'ssalar_20': 'NC_027320.1:55000001-56000000', 'ssalar_icsasgv2': 'NC_027320.1:55000001-56000000', 'sscrofa_102': 'chr15:155000001-156000000', 'taestivum_iwgscrefseqv10': '6A:613000001-614000000', 'tcacao_20110822': '10:11000001-12000000', 'tcastaneum_tcas52': 'NC_003081.2:1-1000000', 'testing': '12:13000001-14000000', 'tguttata_324': '1A:24000001-25000000', 'vpacos_202': 'KB632649.1:1-1000000', 'vpacos_vicpac31': 'ABRR03077387.1:1-1000000', 'vunguiculata_asm411807v1': 'Vu11(old9):34000001-35000000', 'zmays_agpv2': 'chr10:147000001-148000000', 'zmays_agpv3': '9:151000001-152000000'}
         this.consequenceColorMap = {'SO:0001893':'#FF0000', 'SO:0001574':'#FF581A', 'SO:0001575':'#FF581A', 'SO:0001587':'#FF0000', 'SO:0001589':'#9400D3', 'SO:0001578':'#FF0000', 'SO:0002012':'#FFD700', 'SO:0001582':'#FF0000', 'SO:0001889':'#FF69B4', 'SO:0001821':'#FF69B4', 'SO:0001822':'#FF69B4', 'SO:0001583':'#FFD700', 'SO:0001818':'#FF0080', 'SO:0001630':'#FF7F50', 'SO:0001626':'#FF00FF', 'SO:0001567':'#76EE00', 'SO:0001819':'#76EE00', 'SO:0001580':'#458B00', 'SO:0001620':'#458B00', 'SO:0001623':'#7AC5CD', 'SO:0001624':'#7AC5CD', 'SO:0001792':'#32CD32', 'SO:0001627':'#02599C', 'SO:0001621':'#FF4500', 'SO:0001619':'#32CD32', 'SO:0001631':'#A2B5CD', 'SO:0001632':'#A2B5CD', 'SO:0001895':'#A52A2A', 'SO:0001892':'#A52A2A', 'SO:0001782':'#A52A2A', 'SO:0001894':'#A52A2A', 'SO:0001891':'#A52A2A', 'SO:0001566':'#A52A2A', 'SO:0001907':'#7F7F7F', 'SO:0001906':'#7F7F7F', 'SO:0001628':'#636363'}
+
         this.handleSpeciesChange = this.handleSpeciesChange.bind(this);
         this.handleAssemblyChange = this.handleAssemblyChange.bind(this);
         this.handleLocationChange = this.handleLocationChange.bind(this);
@@ -39,14 +41,19 @@ class GenotypeView extends Component {
     }
 
     handleSpeciesChange(selectedSpecies) {
+        // find the list of assemblies for this species
         const assemblyList = this._resolveAssemblyList(this.state.speciesAssemblyMap, selectedSpecies);
+        // Default assembly is the first one on the list
         const selectedAssembly = selectedSpecies + "_" + assemblyList[0].assemblyCode
         this.setState({
             assemblyList: assemblyList,
             selectedSpecies: selectedSpecies,
             selectedAssembly: selectedAssembly,
             location: this.assemblyPositionMap[selectedAssembly] || ''
-        }, this._fetchStudies);
+        }, ( () => {
+                this._fetchStudies();
+                this._fetchEnsemblAssembly();
+            }));
     }
 
     handleAssemblyChange(selectedAssembly) {
@@ -91,17 +98,26 @@ class GenotypeView extends Component {
     }
 
     _resolveAssemblyList(speciesAssemblyMap, selectedSpecies){
-        return speciesAssemblyMap[selectedSpecies].map(item => ({
-            assemblyCode: item.assemblyCode,
-            assemblyName: item.assemblyName
-        }));
+        return speciesAssemblyMap[selectedSpecies];
     }
 
     _fetchData() {
         this._fetchConsequenceRanking();
+        this._fetchEnsemblAssembly();
         this._fetchSpecies();
         this._fetchStudies();
         this._fetchVariants();
+    }
+
+    _fetchEnsemblAssembly(){
+        if (this.state.speciesList.length === 0){ return }
+        const speciesInfo = find(this.state.speciesList, (item => item.taxonomyCode === this.state.selectedSpecies))
+        const ensemblSpecies = speciesInfo.taxonomyScientificName.toLowerCase().replace(' ', '_')
+        fetch(`https://rest.ensembl.org/info/assembly/${ensemblSpecies}?content-type=application/json`)
+            .then(response => response.json())
+            .then(assemblyResults => {
+                this.setState({ensemblAssembly: assemblyResults.assembly_accession});
+            });
     }
 
     _fetchSpecies() {
@@ -115,7 +131,12 @@ class GenotypeView extends Component {
                         taxonomyScientificName: item.taxonomyScientificName
                     }));
                     const uniqSpeciesList = uniqBy(speciesList, 'taxonomyCode');
+                    // Create a map of eva taxonomyCode to list of assemblies
                     const speciesAssemblyMap = chain(speciesResult.response[0].result)
+                                                .map(item => {
+                                                    item.speciesAssemblyCode = item.taxonomyCode + "_" + item.assemblyCode;
+                                                    return item;
+                                                })
                                                 .groupBy(item => item.taxonomyCode)
                                                 .transform((result, value, key) => result[key]=uniqBy(value, 'assemblyCode'))
                                                 .value();
@@ -178,22 +199,27 @@ class GenotypeView extends Component {
                             variants[i].alleleFreqs[key.split("_")[0]] = variants[i].sourceEntries[key].cohortStats.ALL.maf;
                         }
                     }
+                    if (variants[i].annotation) {
+                        let sorted_consequences = sortBy(
+                            variants[i].annotation.consequenceTypes,
+                            item => this.consequenceRankMap[item.soTerms[0].soAccession]
+                        );
 
-                    let sorted_consequences = sortBy(
-                        variants[i].annotation.consequenceTypes,
-                        item => this.consequenceRankMap[item.soTerms[0].soAccession]
-                    );
-
-                    let mostSevereConsequences = first(sorted_consequences)
-                    mostSevereConsequences.color = this.consequenceColorMap[mostSevereConsequences.soTerms[0].soAccession]
-                    variants[i].mostSevereConsequences = mostSevereConsequences
+                        let mostSevereConsequences = first(sorted_consequences)
+                        const consequenceType = consequenceTypeDetails[mostSevereConsequences.soTerms[0].soName]
+                        if (consequenceType){
+                            variants[i].color = consequenceType.color;
+                        }else {
+                            console.log(`Missing definition for consequence ${mostSevereConsequences.soTerms[0].soName}`)
+                        }
+                    }
                 }
             }
             this.setState({
                 isLoaded: true,
                 variants: variants,
                 numPages: Math.ceil(variantsResult.response[0].numTotalResults / this.state.resultsPerPage)
-            });
+            }, this._fetchConsequence);
         },
         error => {
             this.setState({
@@ -201,6 +227,41 @@ class GenotypeView extends Component {
                 error: error
             })
         });
+    }
+
+    _fetchConsequence() {
+        const assembly_info = find(
+            this._resolveAssemblyList(this.state.speciesAssemblyMap, this.state.selectedSpecies),
+            (item => item.speciesAssemblyCode === this.state.selectedAssembly)
+        )
+        if (assembly_info.assemblyAccession !== this.state.ensemblAssembly){
+            console.log(`Cannot fetch consequences because Ensembl does not support ${assembly_info.assemblyAccession}`)
+            return
+        }
+        const ensemblSpecies = assembly_info.taxonomyScientificName.toLowerCase().replace(' ', '_')
+        const inputVariantsMap = Object.fromEntries(this.state.variants.map(
+            item => [[item.chromosome, item.start, '.', item.reference, item.alternate, '. . .'].join(' '), item]
+        ));
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ variants: keys(inputVariantsMap) })
+        };
+        fetch(`https://rest.ensembl.org/vep/${ensemblSpecies}/region`, requestOptions)
+            .then(response => response.json())
+            .then(variantsconsequences => {
+                variantsconsequences.map(consequence => {
+                    const original_variant = inputVariantsMap[consequence.input];
+                    const consequenceType = consequenceTypeDetails[consequence.most_severe_consequence]
+                    if (consequenceType){
+                        original_variant.color = consequenceType.color;
+                    }else{
+                        console.log(`Missing definition for consequence ${consequence.most_severe_consequence}`)
+                    }
+
+                });
+                this.setState({variants:Object.values(inputVariantsMap)});
+            });
     }
 
     _fetchConsequenceRanking() {
