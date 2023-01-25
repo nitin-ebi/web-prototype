@@ -247,8 +247,8 @@ class GenotypeView extends Component {
         };
         fetch(`https://rest.ensembl.org/vep/${ensemblSpecies}/region`, requestOptions)
             .then(response => response.json())
-            .then(variantsconsequences => {
-                variantsconsequences.map(consequence => {
+            .then(variantConsequences => {
+                variantConsequences.map(consequence => {
                     const original_variant = inputVariantsMap[consequence.input];
                     const consequenceType = consequenceTypeDetails[consequence.most_severe_consequence]
                     if (consequenceType){
