@@ -207,6 +207,7 @@ class GenotypeView extends Component {
                         const consequenceType = consequenceTypeDetails[mostSevereConsequences.soTerms[0].soName]
                         if (consequenceType){
                             variants[i].color = consequenceType.color;
+                            variants[i].consequenceName = mostSevereConsequences.soTerms[0].soName;
                         }else {
                             console.log(`Missing definition for consequence ${mostSevereConsequences.soTerms[0].soName}`)
                         }
@@ -253,6 +254,7 @@ class GenotypeView extends Component {
                     const consequenceType = consequenceTypeDetails[consequence.most_severe_consequence]
                     if (consequenceType){
                         original_variant.color = consequenceType.color;
+                        variants[i].consequenceName = consequence.most_severe_consequence;
                     }else{
                         console.log(`Missing definition for consequence ${consequence.most_severe_consequence}`)
                     }

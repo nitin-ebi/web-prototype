@@ -10,9 +10,6 @@ class GenotypesTable extends Component {
         };
     }
 
-
-
-
     render() {
         const error = this.props.error;
         const isLoaded = this.props.isLoaded;
@@ -43,9 +40,11 @@ class GenotypesTable extends Component {
                                     <td className="vf-table__cell | vf-table__heading" scope="row">{item.chromosome}</td>
                                     <td className="vf-table__cell | vf-table__heading" scope="row">{item.start}</td>
                                     <td className="vf-table__cell | vf-table__heading" scope="row">{item.reference}</td>
-                                    <td className="vf-table__cell | vf-table__heading" scope="row"
-                                        style={{"backgroundColor": item.color}}>{item.alternate}</td>
-
+                                    <td id={`${item.chromosome}_${item.start}_${item.reference}_${item.alternate}`}
+                                        className="vf-table__cell | vf-table__heading" scope="row"
+                                        style={{"backgroundColor": item.color}}
+                                        title={item.consequenceName}
+                                        >{item.alternate}</td>
                                     {studies.map(study => (
                                         <td key={study} className="vf-table__cell">{item.alleleFreqs[study]}</td>
                                     ))}
