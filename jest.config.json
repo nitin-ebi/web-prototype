@@ -1,3 +1,4 @@
 {
-  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$"
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$",
+  "testEnvironment": "jsdom"
 }
