@@ -1,4 +1,4 @@
-export const genotype_filter_test_data = {
+export const genotypes_filter_test_data = {
     "speciesList": [
         {
             "taxonomyCode": "dmelanogaster",
