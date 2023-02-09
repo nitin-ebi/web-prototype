@@ -2,7 +2,7 @@ import React from 'react'
 import {render, screen} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import GenotypesFilter from "../components/GenotypesFilter"
-import {genotypes_filter_test_data} from "../__tests_data/GenotypesFilterData"
+import {genotypes_filter_test_data} from "./test_data/GenotypesFilterData"
 
 
 test('check genotype filter view component is loading everything correctly', () => {

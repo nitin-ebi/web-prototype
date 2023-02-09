@@ -2,7 +2,7 @@ import React from 'react'
 import {render, screen} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
-import {genotypes_table_test_data} from "../__tests_data/GenotypesTableData"
+import {genotypes_table_test_data} from "./test_data/GenotypesTableData"
 import GenotypesTable from "../components/GenotypesTable"
 
 test('check genotype table view component is loading everything correctly', () => {
@@ -58,5 +58,9 @@ function rgbToHex(rgb) {
     let r = rgb_val[0]
     let g = rgb_val[1]
     let b = rgb_val[2]
+    /*
+        see stackoverflow(https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb/5624139#5624139)
+        Author : Tim Down (https://stackoverflow.com/users/96100/tim-down)
+     */
     return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)
 }
