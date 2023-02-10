@@ -1,16 +1,29 @@
-import { rest } from 'msw'
+import {rest} from 'msw'
+import { genotypes_view_test_consequences_data,  genotypes_view_test_species_data,  genotypes_view_test_studies_data,
+  genotypes_view_test_variants_data } from "../test/test_data/GenotypesTableData"
 
 export const handlers = [
-  rest.post('/login', (req, res, ctx) => {
-    const { username } = req.body
+    rest.get('https://rest.ensembl.org/info/variation/consequence_types', (req, res, ctx) => {
+        return res(
+            ctx.json(genotypes_view_test_consequences_data),
+        )
+    }),
 
-    return res(
-      ctx.json({
-        id: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
-        username,
-        firstName: 'John',
-        lastName: 'Maverick',
-      }),
-    )
-  }),
+    rest.get('https://www.ebi.ac.uk/eva/webservices/rest/v1/meta/species/list', (req, res, ctx) => {
+        return res(
+            ctx.json(genotypes_view_test_species_data),
+        )
+    }),
+
+    rest.get('https://www.ebi.ac.uk/eva/webservices/rest/v1/meta/studies/list', (req, res, ctx) => {
+        return res(
+            ctx.json(genotypes_view_test_studies_data),
+        )
+    }),
+
+    rest.get('https://www.ebi.ac.uk/eva/webservices/rest/v1/segments/1:3000000-3100000/variants', (req, res, ctx) => {
+        return res(
+            ctx.json(genotypes_view_test_variants_data),
+        )
+    })
 ]
