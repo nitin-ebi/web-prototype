@@ -1,0 +1,89 @@
+.masthead {
+    background-color: #373a36;
+    font-family: "Helvetica Neue", Helvetica, Arial, FreeSans, 'Liberation Sans', sans-serif;
+    padding: 5px;
+}
+
+.masthead,
+.masthead a,
+.masthead a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.masthead-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.masthead-list li {
+    margin-right: 20px;
+}
+
+.masthead-list li:hover {
+    background-color: #5f5f5f;
+}
+
+.ebi-logo-item {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.ebi-logo-item a {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.ebi-logo-item .headmast-ebi-logo {
+    background: no-repeat center/contain url("../../assets/logos/embl-ebi/embl_ebi_logo_white.svg");
+    width: 120px;
+    height: 35px;
+}
+
+.header {
+    font-family: "Helvetica Neue", Helvetica, Arial, FreeSans, 'Liberation Sans', sans-serif;
+    background-image: url('../../assets/logos/eva/eva_homepage_banner.jpg');
+    background-size: cover;
+    padding: 20px;
+}
+
+.eva-logo-heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: -15px;
+
+    color: white;
+    text-decoration: none;
+    font-size: 3rem;
+    font-weight: 300;
+}
+
+.header .menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #fefefe;
+}
+
+.header .menu li {
+    margin-right: 20px;
+}
+
+.header .menu li:hover {
+    background-color: #5f5f5f;
+}
+
+.header .menu li a {
+    color: white;
+    text-decoration: none;
+}

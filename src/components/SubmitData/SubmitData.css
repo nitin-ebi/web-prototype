@@ -1,0 +1,47 @@
+.submit {
+    margin-left: 20px;
+    margin-bottom: 70px;
+    font-family: "Helvetica Neue", Helvetica, Arial, FreeSans, 'Liberation Sans', sans-serif;
+}
+
+.submit h2 {
+    color: #007c82;
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.submit p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.submit a {
+    color: #222;
+    text-decoration: none;
+    border-bottom: 1px dotted #444;
+}
+
+.submit a:hover {
+    color: #007c82;
+}
+
+.padding-bottom-large {
+    padding-bottom: .5rem;
+}
+
+.submit h3 {
+    color: #444;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.submit li{
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.submit h4{
+    color: #444;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
