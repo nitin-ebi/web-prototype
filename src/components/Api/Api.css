@@ -1,0 +1,33 @@
+.api {
+    margin-left: 20px;
+    margin-bottom: 50px;
+    font-family: "Helvetica Neue", Helvetica, Arial, FreeSans, 'Liberation Sans', sans-serif;
+}
+
+.api h2 {
+    color: #007c82;;
+}
+
+.api h3 {
+    color: #444;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.api a {
+    color: #222;
+    text-decoration: none;
+    border-bottom: 1px dotted #444;
+}
+
+.api a:hover {
+    color: #007c82;
+}
+
+.api a:visited {
+    color: #666;
+}
+
+.api p {
+    line-height: 1.5;
+}

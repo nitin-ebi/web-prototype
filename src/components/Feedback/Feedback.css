@@ -1,0 +1,19 @@
+.feedback {
+    margin-left: 20px;
+    margin-bottom: .5rem;
+    font-family: "Helvetica Neue", Helvetica, Arial, FreeSans, 'Liberation Sans', sans-serif;
+}
+
+.feedback h2 {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #007c82;;
+}
+
+.feedback p {
+    font-size: 1.1rem;
+}
+
+.feedback p a{
+    margin-left: 0.1rem;
+}
