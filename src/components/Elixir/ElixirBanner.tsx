@@ -1,4 +1,5 @@
-import './ElixirBanner.css'
+import React from "react";
+import './ElixirBanner.css';
 
 function ElixirBanner() {
     return (

@@ -1,3 +1,4 @@
+import React from "react";
 import ElixirBanner from "../Elixir/ElixirBanner";
 import {getEVAFooterColumnsData, getEVAFooterHeadingData} from "./model/FooterData.tsx";
 import './Footer.css'
